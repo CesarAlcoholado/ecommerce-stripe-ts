@@ -1,11 +1,18 @@
-import type { ProductItem } from "../libs/types"
+import type { CartContextProps, ProductItem } from "../libs/types"
 import DeleteIcon from '../assets/icon-remove-item.svg'
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 interface CartItemProduct {
   product: ProductItem
 }
 
 export const CartItem = ({product}: CartItemProduct) => {
+
+  const totalPrice = product.price * product.quantity!;
+
+  const { removeFromCart } = useContext(CartContext) as CartContextProps;
+
   return (
     <div className="flex items-center justify-between">
       <div>
@@ -23,13 +30,18 @@ export const CartItem = ({product}: CartItemProduct) => {
               })}
             </p>
 
-            <p className="text-base text-rose-400">$50.00</p>
+            <p className="text-base text-rose-400">
+              {totalPrice.toLocaleString("en-us", {
+                style: "currency",
+                currency: "usd",
+              })}
+            </p>
           </div>
         </div>
       </div>
 
       <button
-        // onClick={() => removeFromCart(product.id)}
+        onClick={() => removeFromCart(product.id)}
         className="flex size-[20px] items-center justify-center rounded-full border border-rose-400 text-center hover:cursor-pointer"
       >
         <img className="size-[10px]" src={DeleteIcon} alt="remove item" />

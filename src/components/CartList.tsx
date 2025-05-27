@@ -19,7 +19,7 @@ export const CartList = () => {
 
   return (
     <div className="mt-12 rounded-lg bg-white p-4 lg:h-fit">
-      <h4 className="text-2xl font-bold text-red-500 mb-6">Your Cart is</h4>
+      <h4 className="text-2xl font-bold text-red-500 mb-6">Your Cart is {products.length}</h4>
       {cartNotEmpty ? (
         products.map((product) => (
           <div
