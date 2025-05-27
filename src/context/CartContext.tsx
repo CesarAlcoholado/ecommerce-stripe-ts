@@ -1,11 +1,12 @@
 import { createContext, useState } from "react";
 import type { CartContextProps, CartProviderProps, ProductItem } from "../libs/types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const CartContext = createContext<CartContextProps | undefined>(undefined)
 
 export const CartContextProvider = ({children}:CartProviderProps) => {
 
-  const [products, setProducts] = useState<ProductItem[]>([])
+  const [products, setProducts] = useLocalStorage<ProductItem[]>("dessert-product",[])
 
   const addToCart = (
     id: number,
